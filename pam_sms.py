@@ -83,7 +83,6 @@ def pam_sm_authenticate(pamh, flags, argv):
     store = redis.Redis(host=args['redis'], port=int(args['redis_port']), db=int(args['redis_db']))
 
     phone = store.hget('%s:users' % prefix, user)
-    message(pamh, '%r %r' % (prefix, phone))
     if not phone:
         if absent_ok:
             message('pam_sms: not authenticating: user "%s" not registered' % user)
